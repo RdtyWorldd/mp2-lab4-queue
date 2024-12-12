@@ -53,8 +53,11 @@ inline TQueue<T>::TQueue(const TQueue<T>& queue)
   head = queue.head;
   tail = queue.tail;
   elCount = queue.elCount;
-  memSize = queue.memSize();
+  memSize = queue.memSize;
   pMem = new T[memSize];
+  
+  if (elCount == 0)
+	return;
 
   if (head <= tail)
 	for (int i = head; i <= tail; i++)
@@ -71,7 +74,28 @@ inline TQueue<T>::TQueue(const TQueue<T>& queue)
 template<class T>
 inline TQueue<T>& TQueue<T>::operator=(const TQueue<T>& queue)
 {
-  // TODO: вставьте здесь оператор return
+  head = queue.head;
+  tail = queue.tail;
+  elCount = queue.elCount;
+  if (memSize != queue.memSize)
+  {
+	memSize = queue.memSize;
+	T* tmp = new T[memSize];
+	delete[] pMem;
+	pMem = tmp;
+  }
+
+  if (head <= tail)
+	for (int i = head; i <= tail; i++)
+	  pMem[i] = queue.pMem[i];
+  else
+  {
+	for (int i = head; i < memSize; i++)
+	  pMem[i] = queue.pMem[i];
+	for (int i = 0; i <= tail; i++)
+	  pMem[i] = queue.pMem[i];
+  }
+  return *this;
 }
 
 template<class T>
@@ -129,6 +153,32 @@ inline void TQueue<T>::clear()
   head = 0;
   tail = -1;
   elCount = 0;
+}
+
+template<class T>
+inline bool TQueue<T>::operator==(const TQueue& queue) const
+{
+
+  if (memSize != queue.memSize)
+	return false;
+
+  if (elCount != queue.elCount)
+	return false;
+  
+  for (int i = 0; i < elCount; i++)
+  {
+	int j1 = (head + i) % memSize;
+	int j2 = (queue.head + i) % memSize;
+	if (pMem[j1] != queue.pMem[j2])
+	  return false;
+  }
+  return true;
+}
+
+template<class T>
+inline bool TQueue<T>::operator!=(const TQueue& queue) const
+{
+  return !(*this == queue);
 }
 
 
