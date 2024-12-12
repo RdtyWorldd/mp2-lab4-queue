@@ -23,6 +23,12 @@ public:
   bool isEmpty();
   void clear();
 
+  int getHead() const;
+  int getTail() const;
+
+  int getMaxElCount() const;
+  int getElCount() const;
+
   //по содержанию
   bool operator==(const TQueue& queue) const;
   bool operator!=(const TQueue& queue) const;
@@ -153,6 +159,30 @@ inline void TQueue<T>::clear()
   head = 0;
   tail = -1;
   elCount = 0;
+}
+
+template<class T>
+inline int TQueue<T>::getHead() const
+{
+  return head;
+}
+
+template<class T>
+inline int TQueue<T>::getTail() const
+{
+  return tail;
+}
+
+template<class T>
+inline int TQueue<T>::getElCount() const
+{
+  return elCount;
+}
+
+template<class T>
+inline int TQueue<T>::getMaxElCount() const
+{
+  return memSize;
 }
 
 template<class T>
