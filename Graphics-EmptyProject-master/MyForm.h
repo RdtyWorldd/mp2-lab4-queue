@@ -171,7 +171,7 @@ namespace CppWinForm1 {
 		  // 
 		  // buttonStop
 		  // 
-		  this->buttonStop->Location = System::Drawing::Point(287, 263);
+		  this->buttonStop->Location = System::Drawing::Point(287, 276);
 		  this->buttonStop->Name = L"buttonStop";
 		  this->buttonStop->Size = System::Drawing::Size(169, 38);
 		  this->buttonStop->TabIndex = 6;
@@ -181,7 +181,7 @@ namespace CppWinForm1 {
 		  // 
 		  // buttonStart
 		  // 
-		  this->buttonStart->Location = System::Drawing::Point(39, 263);
+		  this->buttonStart->Location = System::Drawing::Point(39, 276);
 		  this->buttonStart->Name = L"buttonStart";
 		  this->buttonStart->Size = System::Drawing::Size(169, 38);
 		  this->buttonStart->TabIndex = 7;
@@ -270,6 +270,12 @@ namespace CppWinForm1 {
 	  //инициализация очереди из полей
 	  timer1->Stop();
 	  clearCircle();
+
+	  countPop = 0;
+	  countPush = 0;
+	  countEmpty = 0;
+	  countFull = 0;
+
 	  P = System::Double::Parse(textBoxPush->Text);
 	  Q = System::Double::Parse(textBoxPop->Text);
 	  maxSize = System::Int32::Parse(textBoxLength->Text);
@@ -290,6 +296,9 @@ namespace CppWinForm1 {
 	private: System::Void buttonStop_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
 	  timer1->Stop();
+	  System::String^ statText = "Статистика:\n вставок - " + countPush + "; вставок в полную очередь - " + countFull + ";\n" +
+											  "извлечений - " + countPop + "; извлечений из пустой - " + countEmpty;
+	  labelStat->Text = statText;
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) 
 	{
