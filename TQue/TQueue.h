@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 
 template <class T>
@@ -14,7 +14,7 @@ public:
   TQueue(const TQueue<T>& queue);
   TQueue<T>& operator=(const TQueue<T>& queue);
   ~TQueue();
-  
+
   void push(T el);
   T pop();
   const T& front() const;
@@ -23,11 +23,16 @@ public:
   bool isEmpty();
   void clear();
 
-  //по содержанию
+  int getHead() const;
+  int getTail() const;
+
+  int getMaxElCount() const;
+  int getElCount() const;
+
   bool operator==(const TQueue& queue) const;
   bool operator!=(const TQueue& queue) const;
 
-  friend std::ostream& operator<<(std::ostream& out, const TQueue& queue) 
+  friend std::ostream& operator<<(std::ostream& out, const TQueue& queue)
   {
 	return out;
   }
@@ -55,7 +60,7 @@ inline TQueue<T>::TQueue(const TQueue<T>& queue)
   elCount = queue.elCount;
   memSize = queue.memSize;
   pMem = new T[memSize];
-  
+
   if (elCount == 0)
 	return;
 
@@ -156,6 +161,30 @@ inline void TQueue<T>::clear()
 }
 
 template<class T>
+inline int TQueue<T>::getHead() const
+{
+  return head;
+}
+
+template<class T>
+inline int TQueue<T>::getTail() const
+{
+  return tail;
+}
+
+template<class T>
+inline int TQueue<T>::getElCount() const
+{
+  return elCount;
+}
+
+template<class T>
+inline int TQueue<T>::getMaxElCount() const
+{
+  return memSize;
+}
+
+template<class T>
 inline bool TQueue<T>::operator==(const TQueue& queue) const
 {
 
@@ -164,7 +193,7 @@ inline bool TQueue<T>::operator==(const TQueue& queue) const
 
   if (elCount != queue.elCount)
 	return false;
-  
+
   for (int i = 0; i < elCount; i++)
   {
 	int j1 = (head + i) % memSize;
@@ -180,7 +209,3 @@ inline bool TQueue<T>::operator!=(const TQueue& queue) const
 {
   return !(*this == queue);
 }
-
-
-
-

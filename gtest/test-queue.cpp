@@ -135,20 +135,29 @@ TEST(TQueue, compare_queue_with_itself_return_true)
 
 TEST(TQueue, compare_equal_queues_return_true)
 {
-  TQueue<int> q1(4), q2(4);
-  for (int i = 0; i < 3; i++) {
-	q1.push(i);
-  }
-  for (int i = 0; i < 3; i++) {
-	q2.push(i);
-  }
-  for (int i = 0; i < 3; i++) {
-	q2.pop();
-  }
-  for (int i = 0; i < 3; i++) {
-	q2.push(i);
-  }
-  EXPECT_EQ(q1, q2);
+ // TQueue<int> q1(4), q2(4);
+ // for (int i = 0; i < 3; i++) {
+	//q1.push(i);
+ // }
+ // for (int i = 0; i < 3; i++) {
+	//q2.push(i);
+ // }
+ // for (int i = 0; i < 3; i++) {
+	//q2.pop();
+ // }
+ // for (int i = 0; i < 3; i++) {
+	//q2.push(i);
+ // }
+  //EXPECT_EQ(q1, q2);
+  TQueue<int> m(2);
+  TQueue<int> m1(m);
+  m.push(5);
+  m.push(10);
+  m1.push(10);
+  m1.push(5);
+  m1.pop();
+  m1.push(10);
+  EXPECT_EQ(m, m1);
 }
 
 TEST(TQueue, queues_with_different_size_are_not_equal)
